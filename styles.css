@@ -1,16 +1,6 @@
 
 /*
 ====================================================
-
-* 	[Master Stylesheet]
-	
-	Theme Name :  
-	Version    :  
-	Author     :  
-	Author URI :  
-
-====================================================
-
 	TOC
 	
 	1. PRIMARY STYLES
@@ -29,7 +19,7 @@
 	font-style: normal;
 	src: url(YekanBakh-SemiBold.woff)format('woff'),
 		url(YekanBakh-SemiBold.woff2) format('woff2'),
-		uel(YekanBakh-SemiBold.tff)format('truetype');
+		url(YekanBakh-SemiBold.tff)format('truetype');
 }
 html{ font-size: 100%; height: 100%; width: 100%; overflow-x: hidden; margin: 0px;  padding: 0px; touch-action: manipulation; }
 
