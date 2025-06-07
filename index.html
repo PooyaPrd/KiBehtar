@@ -1,107 +1,813 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>به‌زودی...</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap');
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>سایت به‌زودی - کی بهتر</title>
 
-    :root {
-      --color-bg: #f9fafb;
-      --color-text-primary: #111827;
-      --color-text-secondary: #6b7280;
-      --color-accent: #2563eb;
-      --color-loader-bg: #e5e7eb;
-      --font-family-base: 'Vazirmatn', Tahoma, Arial, sans-serif;
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" />
+
+<style>
+  :root {
+    --color-bg: #fff;
+    --color-primary: #6200ee;
+    --color-primary-hover: #3700b3;
+    --color-text: #222;
+    --border-radius: 9999px;
+    --font-family-base: 'Vazir', Tahoma, Arial, sans-serif;
+    --transition-time: 0.25s ease;
+    --header-height: 56px;
+  }
+
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-family-base);
+    user-select: none;
+    overflow-x: hidden;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  .bubbles {
+    position: fixed;
+    top: 0; right: 0; left: 0; bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .bubble {
+    position: absolute;
+    bottom: -60px;
+    background: rgba(98, 0, 238, 0.1);
+    border-radius: 50%;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    opacity: 0.6;
+  }
+
+  .bubble:nth-child(1) {
+    width: 40px; height: 40px;
+    left: 10%;
+    animation-name: bubbleUp1;
+    animation-duration: 18s;
+  }
+  .bubble:nth-child(2) {
+    width: 60px; height: 60px;
+    left: 30%;
+    animation-name: bubbleUp2;
+    animation-duration: 22s;
+  }
+  .bubble:nth-child(3) {
+    width: 30px; height: 30px;
+    left: 50%;
+    animation-name: bubbleUp1;
+    animation-duration: 20s;
+  }
+  .bubble:nth-child(4) {
+    width: 50px; height: 50px;
+    left: 70%;
+    animation-name: bubbleUp2;
+    animation-duration: 24s;
+  }
+  .bubble:nth-child(5) {
+    width: 40px; height: 40px;
+    left: 85%;
+    animation-name: bubbleUp1;
+    animation-duration: 19s;
+  }
+
+  @keyframes bubbleUp1 {
+    0% { bottom: -60px; transform: translateX(0) scale(1);}
+    50% { transform: translateX(15px) scale(1.1);}
+    100% { bottom: 110vh; transform: translateX(0) scale(1);}
+  }
+  @keyframes bubbleUp2 {
+    0% { bottom: -60px; transform: translateX(0) scale(1);}
+    50% { transform: translateX(-15px) scale(0.9);}
+    100% { bottom: 110vh; transform: translateX(0) scale(1);}
+  }
+
+  header {
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: var(--color-bg);
+    z-index: 1000;
+    border-bottom: none;
+  }
+
+  main {
+    flex-grow: 1;
+    max-width: 480px;
+    width: 100%;
+    margin: 80px auto 0 auto;
+    padding: 1.5rem 1.5rem 3rem 1.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+
+    background: rgba(98, 0, 238, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(98, 0, 238, 0.1);
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 2.6rem;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    font-size: 1.15rem;
+    color: #444;
+    margin-bottom: 2rem;
+  }
+
+  .loader {
+    margin: 0 auto 2.8rem;
+    width: 48px;
+    height: 48px;
+    border: 5px solid #ccc;
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: nowrap;
+    margin-bottom: 2rem;
+  }
+
+  button {
+    font-family: 'Vazir', Tahoma, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    background: rgba(98, 0, 238, 0.2);
+    border: 1.8px solid rgba(98, 0, 238, 0.4);
+    color: var(--color-primary);
+    padding: 0.5rem 1.6rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    user-select: none;
+    backdrop-filter: blur(12px);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.15s ease;
+  }
+button:hover,
+  button:focus-visible {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary-hover);
+    outline: none;
+    transform: scale(1.08);
+  }
+
+  button:active {
+    transform: scale(0.95);
+  }
+
+  .quote {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1.6rem;
+    user-select: text;
+  }
+
+  .countdown {
+    font-size: 0.95rem;
+    color: #888;
+  }
+
+  footer {
+    width: 100%;
+    padding: 14px 20px;
+    border-top: 1px solid #eee;
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    user-select: none;
+    background-color: var(--color-bg);
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  footer .brand {
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  /* مودال - پاپ‌آپ */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.38);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  .modal {
+    background: white;
+    border-radius: 16px;
+    max-width: 400px;
+    width: 90%;
+    padding: 1.8rem 2rem;
+    box-shadow: 0 8px 32px rgba(98,0,238,0.15);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    direction: rtl;
+    user-select: text;
+    position: relative;
+  }
+
+  .modal h2 {
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+  }
+
+  .modal p {
+    margin-bottom: 1.2rem;
+  }
+
+  .modal button.close-btn {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.3s ease;
+  }
+
+  .modal button.close-btn:hover {
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 420px) {
+    main {
+      max-width: 95vw;
+      margin-top: 72px;
+      padding-bottom: 2.5rem;
     }
-
-    /* Reset */
-    *, *::before, *::after {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
-
-    body {
-      font-family: var(--font-family-base);
-      background-color: var(--color-bg);
-      color: var(--color-text-primary);
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem 1rem;
-      text-align: center;
-      user-select: none;
-      line-height: 1.6;
-    }
-
     h1 {
-      font-weight: 600;
-      font-size: clamp(2rem, 5vw, 2.75rem);
-      margin-bottom: 1rem;
-      letter-spacing: 0.03em;
-      line-height: 1.3;
+      font-size: 2.2rem;
     }
-
     p {
-      color: var(--color-text-secondary);
-      font-size: clamp(1rem, 2.5vw, 1.125rem);
-      max-width: 480px;
-      margin-bottom: 2rem;
-      user-select: text;
-    }
-
-    .loader {
-      width: 48px;
-      height: 48px;
-      border: 5px solid var(--color-loader-bg);
-      border-top-color: var(--color-accent);
-      border-radius: 50%;
-      animation: spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-      margin-bottom: 2rem;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    button.notify-btn {
-      background-color: var(--color-accent);
-      color: white;
-      border: none;
-      padding: 0.75rem 2rem;
-      border-radius: 0.375rem;
       font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      user-select: none;
     }
-
-    button.notify-btn:hover,
-    button.notify-btn:focus {
-      background-color: #1e40af;
-      outline: none;
+    button {
+      font-size: 1rem;
+      padding: 0.45rem 1.3rem;
     }
-
-    footer {
-      position: absolute;
-      bottom: 1rem;
-      font-size: 0.875rem;
-      color: #9ca3af;
-      user-select: text;
+    .modal {
+      max-width: 90vw;
     }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <h1 id="main-title">سایت ما به‌زودی راه‌اندازی می‌شود</h1>
-  <p>در حال انجام آخرین مراحل برای ارائه بهترین خدمات به شما هستیم. ممنون از صبر و همراهی شما.</p>
-  <div class="loader" role="status" aria-live="polite" aria-label="در حال بارگذاری"></div>
-  <button class="notify-btn" aria-describedby="main-title" onclick="alert('از همراهی شما سپاسگزاریم! به زودی خبرهای جدید را دریافت خواهید کرد.')">
-    اطلاع‌رسانی به من
-  </button>
+  <div class="bubbles" aria-hidden="true">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
 
-  <footer>© ۲۰۲۵ تمامی حقوق محفوظ است.</footer>
+  <header role="banner" aria-label="هدر سایت">
+  </header>
+
+  <main role="main" aria-labelledby="main-title">
+    <h1 id="main-title" tabindex="0">سایت ما به‌زودی راه‌اندازی می‌شود</h1>
+
+    <div class="loader" aria-hidden="true"></div>
+
+    <p tabindex="0">در حال آماده‌سازی تجربه‌ای متفاوت و هیجان‌انگیز برای شما هستیم. صبر کنید و با ما همراه باشید!</p>
+
+    <div class="quote" aria-live="polite" tabindex="0">"زندگی یعنی بهترین خودت را به دنیا نشان دهی"</div>
+
+    <div class="buttons-container">
+      <button id="about-btn" type="button" aria-haspopup="dialog" aria-controls="about-modal">درباره ما</button>
+    </div>
+
+    <div class="countdown" aria-live="polite" tabindex="0" aria-label="زمان باقی مانده تا راه‌اندازی سایت">
+      باقی مانده: <span id="days">0</span> روز، <span id="hours">0</span> ساعت، <span id="minutes">0</span> دقیقه، <span id="seconds">0</span> ثانیه
+    </div>
+  </main>
+
+  <footer role="contentinfo" aria-label="پاورقی سایت">
+    <span>تمامی حقوق این سایت محفوظ است.</span>
+    <span class="brand" aria-label="نام برند">کی بهتر</span>
+  </footer>
+<!-- مودال پاپ‌آپ درباره ما -->
+  <div id="about-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
+    <div class="modal">
+      <button class="close-btn" aria-label="بستن پنجره">&times;</button>
+      <h2 id="modal-title">درباره کی بهتر</h2>
+      <p id="modal-desc">
+        کی بهتر برندی است که با هدف ارتقاء کیفیت زندگی و رفاه افراد فعالیت می‌کند. ما با تمرکز بر ارائه خدمات و محصولات متنوع، سعی داریم در کنار همراهی و پشتیبانی، تجربه‌ای بهتر برای شما خلق کنیم.<br><br>
+        این برند با پشتوانه دانش، نوآوری و تجربه‌ای که در زمینه‌های مختلف دارد، به دنبال ایجاد تحول مثبت و مستمر در زندگی مشتریانش است. از طریق همکاری با متخصصان و تیمی متعهد، ما به کیفیت، صداقت و رضایت مشتری اهمیت ویژه‌ای می‌دهیم.<br><br>
+        همراه کی بهتر باشید تا با هم به سوی فردایی روشن‌تر حرکت کنیم.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const aboutBtn = document.getElementById('about-btn');
+    const aboutModal = document.getElementById('about-modal');
+    const closeBtn = aboutModal.querySelector('.close-btn');
+
+    aboutBtn.addEventListener('click', () => {
+      aboutModal.classList.add('active');
+      aboutModal.querySelector('.modal').focus();
+    });
+
+    closeBtn.addEventListener('click', () => {
+      aboutModal.classList.remove('active');
+      aboutBtn.focus();
+    });
+
+    aboutModal.addEventListener('click', (e) => {
+      if(e.target === aboutModal) {
+        aboutModal.classList.remove('active');
+        aboutBtn.focus();
+      }
+    });
+
+    // برای دسترس‌پذیری کلید ESC برای بستن مودال
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && aboutModal.classList.contains('active')) {
+        aboutModal.classList.remove('active');
+        aboutBtn.focus();
+      }
+    });
+
+    // شمارش معکوس فرضی برای مثال
+    function updateCountdown() {
+      // فقط مثال فرضی
+      const now = new Date();
+      const launchDate = new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000 + 3 * 60 * 60 * 1000); // 5 روز و 3 ساعت آینده
+      const diff = launchDate - now;
+
+      if (diff <= 0) {
+        document.querySelector('.countdown').textContent = "سایت راه‌اندازی شد!";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const seconds = Math.floor((diff % (1000*60)) / 1000);
+
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>سایت به‌زودی - کی بهتر</title>
+
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" />
+
+<style>
+  :root {
+    --color-bg: #fff;
+    --color-primary: #6200ee;
+    --color-primary-hover: #3700b3;
+    --color-text: #222;
+    --border-radius: 9999px;
+    --font-family-base: 'Vazir', Tahoma, Arial, sans-serif;
+    --transition-time: 0.25s ease;
+    --header-height: 56px;
+  }
+
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-family-base);
+    user-select: none;
+    overflow-x: hidden;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  .bubbles {
+    position: fixed;
+    top: 0; right: 0; left: 0; bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .bubble {
+    position: absolute;
+    bottom: -60px;
+    background: rgba(98, 0, 238, 0.1);
+    border-radius: 50%;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    opacity: 0.6;
+  }
+
+  .bubble:nth-child(1) {
+    width: 40px; height: 40px;
+    left: 10%;
+    animation-name: bubbleUp1;
+    animation-duration: 18s;
+  }
+  .bubble:nth-child(2) {
+    width: 60px; height: 60px;
+    left: 30%;
+    animation-name: bubbleUp2;
+    animation-duration: 22s;
+  }
+  .bubble:nth-child(3) {
+    width: 30px; height: 30px;
+    left: 50%;
+    animation-name: bubbleUp1;
+    animation-duration: 20s;
+  }
+  .bubble:nth-child(4) {
+    width: 50px; height: 50px;
+    left: 70%;
+    animation-name: bubbleUp2;
+    animation-duration: 24s;
+  }
+  .bubble:nth-child(5) {
+    width: 40px; height: 40px;
+    left: 85%;
+    animation-name: bubbleUp1;
+    animation-duration: 19s;
+  }
+
+  @keyframes bubbleUp1 {
+    0% { bottom: -60px; transform: translateX(0) scale(1);}
+    50% { transform: translateX(15px) scale(1.1);}
+    100% { bottom: 110vh; transform: translateX(0) scale(1);}
+  }
+  @keyframes bubbleUp2 {
+    0% { bottom: -60px; transform: translateX(0) scale(1);}
+    50% { transform: translateX(-15px) scale(0.9);}
+    100% { bottom: 110vh; transform: translateX(0) scale(1);}
+  }
+
+  header {
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: var(--color-bg);
+    z-index: 1000;
+    border-bottom: none;
+  }
+
+  main {
+    flex-grow: 1;
+    max-width: 480px;
+    width: 100%;
+    margin: 80px auto 0 auto;
+    padding: 1.5rem 1.5rem 3rem 1.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+
+    background: rgba(98, 0, 238, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(98, 0, 238, 0.1);
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 2.6rem;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    font-size: 1.15rem;
+    color: #444;
+    margin-bottom: 2rem;
+  }
+
+  .loader {
+    margin: 0 auto 2.8rem;
+    width: 48px;
+    height: 48px;
+    border: 5px solid #ccc;
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: nowrap;
+    margin-bottom: 2rem;
+  }
+
+  button {
+    font-family: 'Vazir', Tahoma, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    background: rgba(98, 0, 238, 0.2);
+    border: 1.8px solid rgba(98, 0, 238, 0.4);
+    color: var(--color-primary);
+    padding: 0.5rem 1.6rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    user-select: none;
+    backdrop-filter: blur(12px);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.15s ease;
+  }
+
+
+  button:hover,
+  button:focus-visible {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary-hover);
+    outline: none;
+    transform: scale(1.08);
+  }
+
+  button:active {
+    transform: scale(0.95);
+  }
+
+  .quote {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1.6rem;
+    user-select: text;
+  }
+
+  .countdown {
+    font-size: 0.95rem;
+    color: #888;
+  }
+
+  footer {
+    width: 100%;
+    padding: 14px 20px;
+    border-top: 1px solid #eee;
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    user-select: none;
+    background-color: var(--color-bg);
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  footer .brand {
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  /* مودال - پاپ‌آپ */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.38);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  .modal {
+    background: white;
+    border-radius: 16px;
+    max-width: 400px;
+    width: 90%;
+    padding: 1.8rem 2rem;
+    box-shadow: 0 8px 32px rgba(98,0,238,0.15);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    direction: rtl;
+    user-select: text;
+    position: relative;
+  }
+
+  .modal h2 {
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+  }
+
+  .modal p {
+    margin-bottom: 1.2rem;
+  }
+
+  .modal button.close-btn {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.3s ease;
+  }
+
+  .modal button.close-btn:hover {
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 420px) {
+    main {
+      max-width: 95vw;
+      margin-top: 72px;
+      padding-bottom: 2.5rem;
+    }
+    h1 {
+      font-size: 2.2rem;
+    }
+    p {
+      font-size: 1rem;
+    }
+    button {
+      font-size: 1rem;
+      padding: 0.45rem 1.3rem;
+    }
+    .modal {
+      max-width: 90vw;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <header role="banner" aria-label="هدر سایت">
+  </header>
+
+  <main role="main" aria-labelledby="main-title">
+    <h1 id="main-title" tabindex="0">سایت ما به‌زودی راه‌اندازی می‌شود</h1>
+
+    <div class="loader" aria-hidden="true"></div>
+
+    <p tabindex="0">در حال آماده‌سازی تجربه‌ای متفاوت و هیجان‌انگیز برای شما هستیم. صبر کنید و با ما همراه باشید!</p>
+
+    <div class="quote" aria-live="polite" tabindex="0">"زندگی یعنی بهترین خودت را به دنیا نشان دهی"</div>
+
+    <div class="buttons-container">
+      <button id="about-btn" type="button" aria-haspopup="dialog" aria-controls="about-modal">درباره ما</button>
+    </div>
+
+    <div class="countdown" aria-live="polite" tabindex="0" aria-label="زمان باقی مانده تا راه‌اندازی سایت">
+      باقی مانده: <span id="days">0</span> روز، <span id="hours">0</span> ساعت، <span id="minutes">0</span> دقیقه، <span id="seconds">0</span> ثانیه
+    </div>
+  </main>
+
+  <footer role="contentinfo" aria-label="پاورقی سایت">
+    <span>تمامی حقوق این سایت محفوظ است.</span>
+    <span class="brand" aria-label="نام برند">کی بهتر</span>
+  </footer>
+
+  <!-- مودال پاپ‌آپ درباره ما -->
+  <div id="about-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
+    <div class="modal">
+      <button class="close-btn" aria-label="بستن پنجره">&times;</button>
+      <h2 id="modal-title">درباره کی بهتر</h2>
+      <p id="modal-desc">
+        کی بهتر برندی است که با هدف ارتقاء کیفیت زندگی و رفاه افراد فعالیت می‌کند. ما با تمرکز بر ارائه خدمات و محصولات متنوع، سعی داریم در کنار همراهی و پشتیبانی، تجربه‌ای بهتر برای شما خلق کنیم.<br><br>
+        این برند با پشتوانه دانش، نوآوری و تجربه‌ای که در زمینه‌های مختلف دارد، به دنبال ایجاد تحول مثبت و مستمر در زندگی مشتریانش است. از طریق همکاری با متخصصان و تیمی متعهد، ما به کیفیت، صداقت و رضایت مشتری اهمیت ویژه‌ای می‌دهیم.<br><br>
+        همراه کی بهتر باشید تا با هم به سوی فردایی روشن‌تر حرکت کنیم.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const aboutBtn = document.getElementById('about-btn');
+    const aboutModal = document.getElementById('about-modal');
+    const closeBtn = aboutModal.querySelector('.close-btn');
+
+    aboutBtn.addEventListener('click', () => {
+      aboutModal.classList.add('active');
+      aboutModal.querySelector('.modal').focus();
+    });
+
+    closeBtn.addEventListener('click', () => {
+      aboutModal.classList.remove('active');
+      aboutBtn.focus();
+    });
+
+    aboutModal.addEventListener('click', (e) => {
+      if(e.target === aboutModal) {
+        aboutModal.classList.remove('active');
+        aboutBtn.focus();
+      }
+    });
+
+    // برای دسترس‌پذیری کلید ESC برای بستن مودال
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && aboutModal.classList.contains('active')) {
+        aboutModal.classList.remove('active');
+        aboutBtn.focus();
+      }
+    });
+
+    // شمارش معکوس فرضی برای مثال
+    function updateCountdown() {
+      // فقط مثال فرضی
+      const now = new Date();
+      const launchDate = new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000 + 3 * 60 * 60 * 1000); // 5 روز و 3 ساعت آینده
+      const diff = launchDate - now;
+
+      if (diff <= 0) {
+        document.querySelector('.countdown').textContent = "سایت راه‌اندازی شد!";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const seconds = Math.floor((diff % (1000*60)) / 1000);
+
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
 </body>
 </html>
