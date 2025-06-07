@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>به‌زودی...</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap');
+
+    :root {
+      --color-bg: #f9fafb;
+      --color-text-primary: #111827;
+      --color-text-secondary: #6b7280;
+      --color-accent: #2563eb;
+      --color-loader-bg: #e5e7eb;
+      --font-family-base: 'Vazirmatn', Tahoma, Arial, sans-serif;
+    }
+
+    /* Reset */
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family-base);
+      background-color: var(--color-bg);
+      color: var(--color-text-primary);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1rem;
+      text-align: center;
+      user-select: none;
+      line-height: 1.6;
+    }
+
+    h1 {
+      font-weight: 600;
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      margin-bottom: 1rem;
+      letter-spacing: 0.03em;
+      line-height: 1.3;
+    }
+
+    p {
+      color: var(--color-text-secondary);
+      font-size: clamp(1rem, 2.5vw, 1.125rem);
+      max-width: 480px;
+      margin-bottom: 2rem;
+      user-select: text;
+    }
+
+    .loader {
+      width: 48px;
+      height: 48px;
+      border: 5px solid var(--color-loader-bg);
+      border-top-color: var(--color-accent);
+      border-radius: 50%;
+      animation: spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      margin-bottom: 2rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    button.notify-btn {
+      background-color: var(--color-accent);
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 0.375rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+
+    button.notify-btn:hover,
+    button.notify-btn:focus {
+      background-color: #1e40af;
+      outline: none;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 1rem;
+      font-size: 0.875rem;
+      color: #9ca3af;
+      user-select: text;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="main-title">سایت ما به‌زودی راه‌اندازی می‌شود</h1>
+  <p>در حال انجام آخرین مراحل برای ارائه بهترین خدمات به شما هستیم. ممنون از صبر و همراهی شما.</p>
+  <div class="loader" role="status" aria-live="polite" aria-label="در حال بارگذاری"></div>
+  <button class="notify-btn" aria-describedby="main-title" onclick="alert('از همراهی شما سپاسگزاریم! به زودی خبرهای جدید را دریافت خواهید کرد.')">
+    اطلاع‌رسانی به من
+  </button>
+
+  <footer>© ۲۰۲۵ تمامی حقوق محفوظ است.</footer>
+</body>
+</html>
