@@ -1,1 +1,3 @@
 https://t.me/proxy?server=93.95.115.69&port=85&secret=7gAA8A8Pd1VV____9QBuLmlkb3dubG9hZC53aW5kb3dzdXBkYXRlLmNvbQ
+
+https://t.me/proxy?server=156.233.210.45&port=99&secret=7rXpXsHm4qJ_nKJvoq_oq_ptZWRpYS5zdGVhbXBvd2VyZWQuY29t
